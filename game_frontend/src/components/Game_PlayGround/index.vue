@@ -20,8 +20,15 @@ export default {
       default: 0,
     },
   },
+  computed: {
+    // $PlayGround: this.$store.state
+  },
   data () {
     return {
+      $PlayGround: {
+        width: 0,
+        height:0,
+      },
       PlayGroundWidth: 0,
       PlayGroundHeight: 0,
     }

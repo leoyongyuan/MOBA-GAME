@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     $PlayGround: {},
+    $ctx: {},
   },
 
   getters: {
@@ -15,8 +16,10 @@ export default new Vuex.Store({
     getPlayGround(state, { width, height }) {
       state.$PlayGround.width = width
       state.$PlayGround.height = height
-      console.log(state.$PlayGround)
     },
+    getCanvas(state, value) {
+      state.$ctx = value
+    }
   },
 
   actions: {

@@ -39,7 +39,6 @@ export default {
     },
 
     GAME_ANIMATION(timestamp) {
-      
       for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
         let obj = this.Game_OBJECTS[i];
         if (!obj.has_called_start) {
