@@ -5,15 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    $PlayGround: '',
+    $PlayGround: {},
   },
 
   getters: {
   },
   
   mutations: {
-    getPlayGround(state, value) {
-      state.$PlayGround = value
+    getPlayGround(state, { width, height }) {
+      state.$PlayGround.width = width
+      state.$PlayGround.height = height
+      console.log(state.$PlayGround)
     },
   },
 

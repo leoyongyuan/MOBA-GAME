@@ -22,11 +22,14 @@ export default {
   },
   data () {
     return {
-  
+      PlayGroundWidth: 0,
+      PlayGroundHeight: 0,
     }
   },
   mounted() {
-    this.$store.commit('getPlayGround',this.$refs.playground)
+    this.$store.commit('getPlayGround',{width: this.$refs.playground.clientWidth, height: this.$refs.playground.clientHeight})
+    this.PlayGroundWidth = this.$refs.playground.clientWidth
+    this.PlayGroundHeight = this.$refs.playground.clientHeight
   },
   methods: {
     returnMenu() {
@@ -42,10 +45,10 @@ export default {
   user-select:none;
   background-color:grey;
 }
-.game-playground > canvas {
+canvas {
+  width: 100%;
+  height: 100%;
   position:relative;
   display: block;
-  margin: 0 auto;
-  transform:translate(-50%,-50%);
 }
 </style>
