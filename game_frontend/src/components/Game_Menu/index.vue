@@ -2,15 +2,15 @@
     <div>
         <div v-if="!show" ref="menu" class="game-menu">
             <div class="game-menu-field">
-                <div @click="singleMode" class="game-menu-field-item game-menu-field-item-single-mode">
+                <div @click="show = 1" class="game-menu-field-item game-menu-field-item-single-mode">
                     单人模式
                 </div>
                 </br>
-                <div @click="multiMode" class="game-menu-field-item game-menu-field-item-multi-mode">
+                <div @click="show = 2" class="game-menu-field-item game-menu-field-item-multi-mode">
                     多人模式
                 </div>
                 </br>
-                <div @click="exitGame" class="game-menu-field-item game-menu-field-item-settings">
+                <div @click="show = 3" class="game-menu-field-item game-menu-field-item-settings">
                     退出
                 </div>
             </div>
@@ -35,18 +35,6 @@ export default {
         }
     },
     methods: {
-        singleMode() {
-            this.show = 1
-            console.log("singleMode")
-        },
-        multiMode() {
-            this.show = 2
-            console.log("multiMode")
-        },
-        exitGame() {
-            this.show = 3
-            console.log("exitGame")
-        },
         returnMenu() {
             this.show = 0
         },

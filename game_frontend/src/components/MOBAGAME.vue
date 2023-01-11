@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <GameMenu></GameMenu>
-    </div>
+  <div>
+    <GameMenu></GameMenu>
+  </div>
 </template>
 
 <script>
@@ -11,8 +11,8 @@ export default {
   components: {
     GameMenu,
   },
-  data: {
-    return() {
+  data () {
+    return {
     }
   }
 }
