@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="!show" ref="menu" class="game-menu">
+  <div class="game-menu">
+    <div v-if="!show" ref="menu">
       <div class="game-menu-field">
         <div @click="show = 1" class="game-menu-field-item game-menu-field-item-single-mode">
           单人模式
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div v-else-if="show === 1 || show === 2">
+    <div style="height: 100%;" v-else-if="show === 1 || show === 2">
       <GamePlayGround :show="show" @returnMenu="returnMenu"></GamePlayGround>
     </div>
     <div v-else></div>
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .game-menu {
   width: 100%;
   height: 100%;
@@ -71,19 +71,6 @@ export default {
 
 .game-menu-field-item:hover{
   transform: scale(1.2);
-}
-
-.game-playground {
-  width: 100%;
-  height: 100%;
-  user-select:none;
-  background-color:grey;
-}
-.game-playground > canvas {
-  position:relative;
-  display: block;
-  margin: 0 auto;
-  transform:translate(-50%，-50%);
 }
 
 </style>
