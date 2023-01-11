@@ -5,13 +5,14 @@ export default {
   name: 'GameObject',
   data() {
     return {
-      Game_OBJECTS: [],
       has_called_start: false, // 表示有无执行过start
       timeDelta: 0,  // 当前帧距离上一帧的时间间隔
       last_timeStamp: 0, // 防止浏览器不同，保存上一帧的时间
+      Game_OBJECTS: [],
     }
   },
   mounted() {
+    this.Game_OBJECTS = this.$store.state.Game_OBJECTS
     window.requestAnimationFrame(this.GAME_ANIMATION)
   },
   methods: {
@@ -29,16 +30,11 @@ export default {
 
     destory() {  // 删掉该物体
       this.on_destory();
-      // 找到数组中对应的对象，删掉
-      for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
-        if (this.Game_OBJECTS[i] === this) {
-          this.Game_OBJECTS.splice(i,1);
-          break;
-        }
-      }
+      this.store.commit('destoryGameObject',this)
     },
 
     GAME_ANIMATION(timestamp) {
+      // console.log(this.Game_OBJECTS[0],this.Game_OBJECTS[1])
       for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
         let obj = this.Game_OBJECTS[i];
         if (!obj.has_called_start) {

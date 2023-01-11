@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     $PlayGround: {},
     $ctx: {},
+    Game_OBJECTS: [],
   },
 
   getters: {
@@ -19,6 +20,18 @@ export default new Vuex.Store({
     },
     getCanvas(state, value) {
       state.$ctx = value
+    },
+    addGameObject(state, value) {
+      state.Game_OBJECTS.push(value)
+    },
+    destoryGameObject(state,value) {
+      // 找到数组中对应的对象，删掉
+      for (let i = 0; i < state.Game_OBJECTS.length; i ++ ) {
+        if (state.Game_OBJECTS[i] === value) {
+          state.Game_OBJECTS.splice(i,1);
+          break;
+        }
+      }
     }
   },
 

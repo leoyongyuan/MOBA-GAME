@@ -1,8 +1,8 @@
 <template>
   <div ref="playground" class="game-playground">
-    <div @click="returnMenu">退出</div>
+    <!-- <div @click="returnMenu">退出</div> -->
     <GameMap></GameMap>
-    <Player></Player>
+    <Player :PlayerProp="PlayerProp"></Player>
   </div>
 </template>
 <script>
@@ -20,23 +20,33 @@ export default {
       default: 0,
     },
   },
-  computed: {
-    // $PlayGround: this.$store.state
-  },
   data () {
     return {
-      $PlayGround: {
-        width: 0,
-        height:0,
-      },
       PlayGroundWidth: 0,
       PlayGroundHeight: 0,
+      PlayersCnt: 6,
+      PlayerProp: {
+        x: 0,   // x 坐标
+        y: 0,   // y 坐标
+        radius: 0,  // 半径显示大小
+        color: 'white', 
+        speed: 0,  // 玩家的移动速度，以地图百分比来规定
+        is_me: false, // 判断是否是自己
+      }
     }
   },
   mounted() {
     this.$store.commit('getPlayGround',{width: this.$refs.playground.clientWidth, height: this.$refs.playground.clientHeight})
     this.PlayGroundWidth = this.$refs.playground.clientWidth
     this.PlayGroundHeight = this.$refs.playground.clientHeight
+    this.PlayerProp = { 
+      x : this.PlayGroundWidth / 2, 
+      y : this.PlayGroundHeight / 2,
+      radius: this.PlayGroundHeight * 0.05,
+      color: "red",
+      speed: this.PlayGroundHeight * 0.15,
+      is_me: true,
+    }
   },
   methods: {
     returnMenu() {
