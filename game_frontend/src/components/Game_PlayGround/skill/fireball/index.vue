@@ -22,11 +22,10 @@ export default {
       this.ctx = this.$store.state.$ctx
       this.canvas = this.$store.state.$canvas
     })
-    this.$store.commit('addGameObject',this)
+    this.GetFireBall()
   },
   methods: {
     start() {
-      this.GetFireBall()
     },
 
     update() {
@@ -49,18 +48,18 @@ export default {
     render() {
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-      this.ctx.fillStyle = color; 
+      this.ctx.fillStyle = this.color; 
       this.ctx.fill();
     },
 
     GetFireBall() {
       eventBus.$on('shootFireBall',param => {
+        this.$store.commit('addGameObject',this)
         const {x, y, radius, vx, vy, color, speed, moveLength } = param.FireBall
         this.x = x,this.y = y;
         this.vx = vx,this.vy = vy;
         this.radius = radius,this.color = color;
         this.speed = speed,this.moveLength = moveLength
-        console.log(param.FireBall)
       })
     },
   }

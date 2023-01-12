@@ -34,7 +34,7 @@ export default {
         is_me: false, // 判断是否是自己
         curSkill: null, // 当前选择的技能
       },
-      FrieBall: {
+      FireBall: {
         x: 0, // 火球的x坐标
         y: 0, // 火球的y坐标
         radius: 0, // 半径 
@@ -113,15 +113,15 @@ export default {
 
     // 发射火球
     shootFireBall(tx,ty) {
-      this.FrieBall.x = this.PlayerAttr.x,this.FrieBall.y = this.PlayerAttr.y;
-      this.FrieBall.radius = this.PlayGround.height * 0.01;
-      let angle = Math.atan2(ty - this.FrieBall.y,tx - this.FrieBall.x);
-      this.FrieBall.vx = Math.cos(angle),this.FrieBall.vy = Math.sin(angle);
-      this.FrieBall.color = "orange";
-      this.FrieBall.speed = this.PlayGround.height * 0.3;
-      this.FrieBall.moveLength = this.PlayGround.height * 1.5;
+      this.FireBall.x = this.PlayerAttr.x,this.FireBall.y = this.PlayerAttr.y;
+      this.FireBall.radius = this.PlayGround.height * 0.01;
+      let angle = Math.atan2(ty - this.FireBall.y,tx - this.FireBall.x);
+      this.FireBall.vx = Math.cos(angle),this.FireBall.vy = Math.sin(angle);
+      this.FireBall.color = "orange";
+      this.FireBall.speed = this.PlayGround.height * 0.3;
+      this.FireBall.moveLength = this.PlayGround.height * 1.5;
       eventBus.$emit('shootFireBall',{
-        FrieBall: this.FireBall
+        FireBall: this.FireBall
       })
     },
 
