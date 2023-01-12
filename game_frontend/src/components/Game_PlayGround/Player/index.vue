@@ -1,8 +1,15 @@
+<template>
+  <SKILLFireBALL></SKILLFireBALL>
+</template>
 <script>
-import { mapGetters } from 'vuex'
+import SKILLFireBALL from '../skill/fireball/index.vue'
 import GameObject from '../Game_Object/index.vue'
+import eventBus from '../../../utils/eventBus.js'
 export default {
   extends: GameObject, // 继承GameObject渲染引擎
+  components: {
+    SKILLFireBALL,
+  },
   props: {
     PlayerProp: {
       type: Object,
@@ -11,6 +18,10 @@ export default {
   },
   data() {
     return {
+      eps: 0.1, // 设置误差值
+      ctx: null, 
+      canvas: null,
+      PlayGround: null, 
       PlayerAttr: {
         x: 0,   // x 坐标
         y: 0,   // y 坐标
@@ -21,10 +32,18 @@ export default {
         color: 'white', 
         speed: 0,  // 玩家的移动速度，以地图百分比来规定
         is_me: false, // 判断是否是自己
+        curSkill: null, // 当前选择的技能
       },
-      eps: 0.1, // 设置误差值
-      ctx: '', 
-      canvas: '',
+      FrieBall: {
+        x: 0, // 火球的x坐标
+        y: 0, // 火球的y坐标
+        radius: 0, // 半径 
+        vx: 0,
+        vy: 0,
+        color: 0,
+        speed: 0, // 速度
+        moveLength: 0, // 射程
+      },
     }
   },
   mounted() {
@@ -32,6 +51,7 @@ export default {
     this.$nextTick(() => {
       this.ctx = this.$store.state.$ctx
       this.canvas = this.$store.state.$canvas
+      this.PlayGround = this.$store.state.$PlayGround
     })
     this.$store.commit('addGameObject',this)
   },
@@ -73,9 +93,35 @@ export default {
     // 角色的所有监听函数
     listeningEvents() {
       this.canvas.addEventListener('mousedown',e => {
-        if (e.which === 3) {
+        if (e.which === 3) {         // 右键
           this.moveTO(e.clientX,e.clientY)
+        } else if (e.which === 1) {   // 左键
+          if (this.PlayerAttr.curSkill === 'fireBall') {
+            this.shootFireBall(e.clientX,e.clientY)
+          }
         }
+        this.PlayerAttr.curSkill = null
+      });
+
+      window.addEventListener('keydown',e => {
+        if (e.which === 81) {  // q 
+          this.PlayerAttr.curSkill = 'fireBall';
+          return;
+        }
+      })
+    },
+
+    // 发射火球
+    shootFireBall(tx,ty) {
+      this.FrieBall.x = this.PlayerAttr.x,this.FrieBall.y = this.PlayerAttr.y;
+      this.FrieBall.radius = this.PlayGround.height * 0.01;
+      let angle = Math.atan2(ty - this.FrieBall.y,tx - this.FrieBall.x);
+      this.FrieBall.vx = Math.cos(angle),this.FrieBall.vy = Math.sin(angle);
+      this.FrieBall.color = "orange";
+      this.FrieBall.speed = this.PlayGround.height * 0.3;
+      this.FrieBall.moveLength = this.PlayGround.height * 1.5;
+      eventBus.$emit('shootFireBall',{
+        FrieBall: this.FireBall
       })
     },
 
