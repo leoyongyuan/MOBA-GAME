@@ -19,7 +19,7 @@ export default {
       eps: 0.1, // 精度
     }
   },
-  mounted() {
+  mounted() { 
     this.$nextTick(() => {
       this.ctx = this.$store.state.$ctx
       this.canvas = this.$store.state.$canvas
@@ -43,10 +43,6 @@ export default {
       this.render()
     },
 
-    destory() {
-
-    },
-
     render() {
       this.ctx.beginPath();
       this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
@@ -57,7 +53,7 @@ export default {
     GetFireBall() {
       eventBus.$on('shootFireBall',param => {
         this.$store.commit('addGameObject',this)
-        const {x, y, radius, vx, vy, color, speed, moveLength } = param.FireBall
+        const { x, y, radius, vx, vy, color, speed, moveLength } = param.FireBall
         this.x = x,this.y = y;
         this.vx = vx,this.vy = vy;
         this.radius = radius,this.color = color;

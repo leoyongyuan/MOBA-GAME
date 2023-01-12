@@ -30,12 +30,13 @@ export default {
 
     destory() {  // 删掉该物体
       this.on_destory();
-      this.store.commit('destoryGameObject',this)
+      this.$store.commit('destoryGameObject',this)
     },
     
 
     // 游戏动画渲染
     GAME_ANIMATION(timestamp) {
+      console.log(this.Game_OBJECTS.length)
       for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
         let obj = this.Game_OBJECTS[i];
         if (!obj.has_called_start) {

@@ -118,7 +118,7 @@ export default {
       let angle = Math.atan2(ty - this.FireBall.y,tx - this.FireBall.x);
       this.FireBall.vx = Math.cos(angle),this.FireBall.vy = Math.sin(angle);
       this.FireBall.color = "orange";
-      this.FireBall.speed = this.PlayGround.height * 0.3;
+      this.FireBall.speed = this.PlayGround.height * 0.25;
       this.FireBall.moveLength = this.PlayGround.height * 1.5;
       eventBus.$emit('shootFireBall',{
         FireBall: this.FireBall
