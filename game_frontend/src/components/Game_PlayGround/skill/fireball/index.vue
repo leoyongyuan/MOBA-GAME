@@ -3,19 +3,21 @@ import GameObject from '../../Game_Object/index.vue'
 import eventBus from '@/utils/eventBus.js'
 export default {
   name: 'FireBall',
-  extends: GameObject,
-  data: {
-    ctx: '',
-    canvas: '',
-    x: 0, // 火球的x坐标
-    y: 0, // 火球的y坐标
-    radius: 0, // 半径 
-    vx: 0,
-    vy: 0,
-    color: 0,
-    speed: 0, // 速度
-    moveLength: 0, // 射程
-    eps: 0.1, // 精度
+  extends: GameObject, // 继承GameObject渲染引擎
+  data() {
+    return {
+      ctx: null,
+      canvas: null,
+      x: 0, // 火球的x坐标
+      y: 0, // 火球的y坐标
+      radius: 0, // 半径 
+      vx: 0,
+      vy: 0,
+      color: 0,
+      speed: 0, // 速度
+      moveLength: 0, // 射程
+      eps: 0.1, // 精度
+    }
   },
   mounted() {
     this.$nextTick(() => {
