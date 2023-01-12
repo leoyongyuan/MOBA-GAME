@@ -7,7 +7,6 @@ export default new Vuex.Store({
   state: {
     $PlayGround: {},
     $canvas: {},
-    $ctx: {},
     Game_OBJECTS: [],
   },
 
@@ -19,9 +18,8 @@ export default new Vuex.Store({
       state.$PlayGround.width = width
       state.$PlayGround.height = height
     },
-    getCanvas(state, { canvas, ctx }) {
-      state.$canvas = canvas
-      state.$ctx = ctx
+    getCanvas(state, value) {
+      state.$canvas = value
     },
     addGameObject(state, value) {
       state.Game_OBJECTS.push(value)

@@ -20,11 +20,15 @@ export default {
       },
       eps: 0.1, // 设置误差值
       ctx: '', 
+      canvas: '',
     }
   },
   mounted() {
     // 保证对象内部没有对象，不用深拷贝
-    this.ctx = this.$store.state.$ctx
+    this.$nextTick(() => {
+      this.ctx = this.$store.state.$ctx
+      this.canvas = this.$store.state.$canvas
+    })
     this.$store.commit('addGameObject',this)
   },
   methods: {
@@ -38,10 +42,10 @@ export default {
 
     // 渲染玩家
     render() {
+      this.PlayerAttr = this.PlayerProp
       const {x, y, radius, color, speed, is_me} = this.PlayerAttr
-      console.log(x,y,radius,color)
       this.ctx.beginPath();//开始绘制
-      this.ctx.arc(150,66,radius / 10,0,2 * Math.PI,false);//arc 的意思是“弧”
+      this.ctx.arc(x, y, radius,0,2 * Math.PI,false);//arc 的意思是“弧”
       this.ctx.fillStyle = color;//设置填充颜色
       this.ctx.fill();//开始填充
     }

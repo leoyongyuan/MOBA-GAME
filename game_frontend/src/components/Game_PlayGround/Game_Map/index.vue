@@ -9,15 +9,20 @@ export default {
   data() {
     return {
       ctx: '',
+      canvas: '',
       $PlayGround: {},
     }
   },
   mounted() {
-    this.ctx = this.$refs.canvas.getContext('2d');
-    this.$store.commit('getCanvas', this.ctx)
+    this.canvas = this.$refs.canvas;
     this.$store.commit('addGameObject',this)
     this.$nextTick(() => {
       this.$PlayGround = this.$store.state.$PlayGround
+      this.canvas.width = this.$PlayGround.width
+      this.canvas.height = this.$PlayGround.height
+      this.ctx = this.canvas.getContext('2d'); 
+      this.$store.commit('getCanvas',{ canvas : this.canvas, ctx : this.ctx })
+      this.render()
     })
   },
   methods: {
@@ -32,7 +37,7 @@ export default {
 
     // 渲染地图
     render() {
-      this.ctx.fillStyle = "rbga(0,0,0)";
+      this.ctx.fillStyle = "#000000";
       this.ctx.fillRect(0,0,this.$PlayGround.width,this.$PlayGround.height)
     },
   }
