@@ -17,11 +17,11 @@ export default {
   },
   methods: {
     start() {  // 只会在第一帧执行一次
-      console.log("start _ Object")
+
     },
 
     update() {  //每一帧都会执行一次
-      console.log("update _ Object")
+
     },
 
     on_destory() { // 删除前再执行一次
@@ -32,9 +32,10 @@ export default {
       this.on_destory();
       this.store.commit('destoryGameObject',this)
     },
+    
 
+    // 游戏动画渲染
     GAME_ANIMATION(timestamp) {
-      // console.log(this.Game_OBJECTS[0],this.Game_OBJECTS[1])
       for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
         let obj = this.Game_OBJECTS[i];
         if (!obj.has_called_start) {

@@ -43,7 +43,7 @@ export default {
       x : this.PlayGroundWidth / 2, 
       y : this.PlayGroundHeight / 2,
       radius: this.PlayGroundHeight * 0.05,
-      color: "red",
+      color: 'white',
       speed: this.PlayGroundHeight * 0.15,
       is_me: true,
     }

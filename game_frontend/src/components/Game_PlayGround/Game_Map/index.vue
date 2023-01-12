@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas"></canvas>
+  <canvas @contextmenu.prevent ref="canvas"></canvas>
 </template>
 <script>
 import GameObject from '../Game_Object/index.vue'
@@ -22,7 +22,6 @@ export default {
       this.canvas.height = this.$PlayGround.height
       this.ctx = this.canvas.getContext('2d'); 
       this.$store.commit('getCanvas',{ canvas : this.canvas, ctx : this.ctx })
-      this.render()
     })
   },
   methods: {
@@ -37,7 +36,7 @@ export default {
 
     // 渲染地图
     render() {
-      this.ctx.fillStyle = "#000000";
+      this.ctx.fillStyle = "rgba(0,0,0,0.1)";
       this.ctx.fillRect(0,0,this.$PlayGround.width,this.$PlayGround.height)
     },
   }
