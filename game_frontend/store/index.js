@@ -24,7 +24,7 @@ export default new Vuex.Store({
     addGameObject(state, value) {
       state.Game_OBJECTS.push(value)
     },
-    destoryGameObject(state,value) {
+    destroyGameObject(state,value) {
       // 找到数组中对应的对象，删掉
       for (let i = 0; i < state.Game_OBJECTS.length; i ++ ) {
         if (state.Game_OBJECTS[i] === value) {

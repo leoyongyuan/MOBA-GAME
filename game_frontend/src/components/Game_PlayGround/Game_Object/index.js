@@ -15,12 +15,12 @@ export class GameObject {
 
   }
 
-  on_destory() { // 删除前再执行一次
+  on_destroy() { // 删除前再执行一次
 
   }
 
-  destory() {  // 删掉该物体
-    this.on_destory();
+  destroy() {  // 删掉该物体
+    this.on_destroy();
     for (let i = 0; i < Game_OBJECTS.length; i ++ )  {
       if (Game_OBJECTS[i] === this){
         Game_OBJECTS.splice(i,1);

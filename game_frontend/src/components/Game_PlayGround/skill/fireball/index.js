@@ -24,7 +24,7 @@ export class FireBall extends GameObject {
 
   update() {
     if (this.moveLength < this.eps) {
-      this.destory()
+      this.destroy()
       return;
     }
 
@@ -62,7 +62,7 @@ export class FireBall extends GameObject {
   attack(player) {
     let angle = Math.atan2(player.y - this.y, player.x - this.x)
     player.isAttacked(angle,this.damage);
-    this.destory()
+    this.destroy()
   }
 
 

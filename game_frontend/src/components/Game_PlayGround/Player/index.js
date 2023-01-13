@@ -1,5 +1,6 @@
 import { GameObject } from "../Game_Object";
 import { FireBall } from "../skill/fireball";
+import { Particle } from "../particle";
 
 export class Player extends GameObject{
   constructor(playGround, x, y, radius, color, speed, is_me) {
@@ -91,12 +92,24 @@ export class Player extends GameObject{
   isAttacked(angle, damage) {
     this.radius -= damage; // 减去血量
     if (this.radius < 10) {  //半径小于10则判定为阵亡
-      this.destory();
+      this.destroy();
       return  false;
-    } else {
-      this.damageX = Math.cos(angle)
-      this.damageY = Math.sin(angle)
-      this.damageSpeed = damage * 120
+    }
+    this.damageX = Math.cos(angle)
+    this.damageY = Math.sin(angle)
+    this.damageSpeed = damage * 120
+
+    // 被攻击的粒子效果
+
+    for(let i = 0; i < Math.random() * 5 + 10; i ++ ) {
+      let x = this.x ,y = this.y;
+      let radius = this.radius * Math.random() * 0.1;
+      let angle = Math.PI * 2 * Math.random(); 
+      let vx = Math.cos(angle),vy = Math.sin(angle)
+      let color = this.color
+      let speed = this.speed * 10;
+      let moveLength = this.radius * Math.random() * 10
+      new Particle(this.playGround, x, y, radius, vx, vy, color, speed, moveLength);
     }
   }
 
