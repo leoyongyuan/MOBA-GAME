@@ -22,6 +22,10 @@ export class Player extends GameObject{
   start() {
     if (this.is_me) {
       this.listeningEvents()
+    } else {
+      let tx = Math.random() * this.playGround.width;
+      let ty = Math.random() * this.playGround.height;
+      this.moveTO(tx,ty)
     }
   }
 
@@ -84,6 +88,11 @@ export class Player extends GameObject{
     if (this.moveLength < this.eps) {
       this.moveLength = 0;
       this.vx = this.vy = 0;
+      if (!this.is_me) {
+        let tx = Math.random() * this.playGround.width;
+        let ty = Math.random() * this.playGround.height;
+        this.moveTO(tx,ty)
+      }
     } else {
       // 算出每一时间戳的距离
       let moved = Math.min(this.moveLength, this.speed * this.timeDelta / 1000);
