@@ -15,8 +15,13 @@ export class Player extends GameObject{
     this.color = color;
     this.speed = speed;   // 玩家的移动速度，以地图百分比来规定
     this.is_me = is_me, // 判断是否是自己
-    this.curSkill = null, // 当前选择的技能
+    this.curSkill = null; // 当前选择的技能
     this.eps = 0.01;  // 设置误差值
+
+    this.damageX = 0;   // 收到伤害的方向
+    this.damageY = 0; 
+    this.friction = 0.95   // 摩擦力
+    this.damageSpeed = 0;   // 被击退的速度
   }
 
   start() {
@@ -63,7 +68,7 @@ export class Player extends GameObject{
     let color = "orange";
     let speed = this.playGround.height * 0.5;
     let moveLength = this.playGround.height * 1.5;
-    new FireBall(this.playGround,this,x, y, radius, vx, vy, color, speed, moveLength)
+    new FireBall(this.playGround,this,x, y, radius, vx, vy, color, speed, moveLength, this.playGround.height * 0.01)
   }
 
   // 求两点之前的欧几里得距离
@@ -82,23 +87,44 @@ export class Player extends GameObject{
     this.vy = Math.sin(angle);
   }
 
+  //被攻击到了
+  isAttacked(angle, damage) {
+    this.radius -= damage; // 减去血量
+    if (this.radius < 10) {  //半径小于10则判定为阵亡
+      this.destory();
+      return  false;
+    } else {
+      this.damageX = Math.cos(angle)
+      this.damageY = Math.sin(angle)
+      this.damageSpeed = damage * 120
+    }
+  }
 
   update() {
-    // 查看是否走到了终点
-    if (this.moveLength < this.eps) {
-      this.moveLength = 0;
+    // 被攻击的情况
+    if (this.damageSpeed > 10) {
       this.vx = this.vy = 0;
-      if (!this.is_me) {
-        let tx = Math.random() * this.playGround.width;
-        let ty = Math.random() * this.playGround.height;
-        this.moveTO(tx,ty)
-      }
+      this.moveLength = 0;
+      this.x += this.damageX * this.damageSpeed  * this.timeDelta / 1000;
+      this.y += this.damageY * this.damageSpeed  * this.timeDelta / 1000;
+      this.damageSpeed *= this.friction;   // 摩擦力消去速度
     } else {
-      // 算出每一时间戳的距离
-      let moved = Math.min(this.moveLength, this.speed * this.timeDelta / 1000);
-      this.x += this.vx * moved;
-      this.y += this.vy * moved;
-      this.moveLength -= moved;
+      // 查看是否走完了路程
+      if (this.moveLength < this.eps) {
+        this.moveLength = 0;
+        this.vx = this.vy = 0;
+        if (!this.is_me) {
+          let tx = Math.random() * this.playGround.width;
+          let ty = Math.random() * this.playGround.height;
+          this.moveTO(tx,ty)
+        }
+      } else {
+        // 算出每一时间戳的距离
+        let moved = Math.min(this.moveLength, this.speed * this.timeDelta / 1000);
+        this.x += this.vx * moved;
+        this.y += this.vy * moved;
+        this.moveLength -= moved;
+      }
     }
 
     this.render()
