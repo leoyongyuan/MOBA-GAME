@@ -1,4 +1,5 @@
 import { GameObject } from "../Game_Object";
+import { FireBall } from "../skill/fireball";
 
 export class Player extends GameObject{
   constructor(playground, x, y, radius, color, speed, is_me) {
@@ -35,7 +36,7 @@ export class Player extends GameObject{
         this.moveTO(e.clientX,e.clientY)
       } else if (e.which === 1) {   // 左键
         if (this.curSkill === 'fireBall') {
-          // this.shootFireBall(e.clientX,e.clientY)
+          this.shootFireBall(e.clientX,e.clientY)
         }
       }
       this.curSkill = null
@@ -47,6 +48,18 @@ export class Player extends GameObject{
         return;
       }
     })
+  }
+
+      // 发射火球
+  shootFireBall(tx,ty) {
+    let x = this.x, y = this.y;
+    let radius = this.playground.height * 0.01;
+    let angle = Math.atan2(ty - this.y,tx - this.x);
+    let vx = Math.cos(angle), vy = Math.sin(angle);
+    let color = "orange";
+    let speed = this.playground.height * 0.5;
+    let moveLength = this.playground.height * 1.5;
+    new FireBall(this.playground,this,x, y, radius, vx, vy, color, speed, moveLength)
   }
 
   // 求两点之前的欧几里得距离

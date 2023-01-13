@@ -5,7 +5,7 @@ export class FireBall extends GameObject {
     super();
     this.playground = playground;
     this.player = player;
-    this.ctx = this.playground.game_map.ctx;
+    this.ctx = this.playground.gameMap.ctx;
     this.x = x;   // 火球的x坐标
     this.y = y;   // 火球的y坐标
     this.vx = vx;
