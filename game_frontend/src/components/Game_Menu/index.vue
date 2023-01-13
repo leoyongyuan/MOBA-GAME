@@ -16,23 +16,28 @@
       </div>
     </div>
     <div style="height: 100%;" v-else-if="show === 1 || show === 2">
-      <GamePlayGround :show="show" @returnMenu="returnMenu"></GamePlayGround>
+      <!-- <GamePlayGround :show="show" @returnMenu="returnMenu"></GamePlayGround> -->
+      <div style="height: 100%;" id="GamePlayGround"></div>
     </div>
     <div v-else></div>
   </div>
 </template>
 <script>
-import GamePlayGround from '../Game_PlayGround/index.vue'
+import { GamePlayGround } from '../Game_PlayGround/index.js'
+import $ from 'jquery'
 export default {
   name: 'GameMenu',
-  components: {
-    GamePlayGround,
-  },
   data () {
     return {
       $menu: this.$refs.menu,
+      $playground: null,
       show: 1,
     }
+  },
+  mounted() {
+    let PlayGround = new GamePlayGround('GamePlayGround')
+    this.$playground = $('#GamePlayGround')
+    this.$playground.append(PlayGround)
   },
   methods: {
     returnMenu() {
@@ -43,6 +48,7 @@ export default {
 </script>
 
 <style>
+@import url(../../../static/base.css);
 .game-menu {
   width: 100%;
   height: 100%;
@@ -72,5 +78,4 @@ export default {
 .game-menu-field-item:hover{
   transform: scale(1.2);
 }
-
 </style>

@@ -68,11 +68,13 @@ export default {
 
     update() {
       // 查看是否走到了终点
+      console.log(111)
       if (this.PlayerAttr.moveLength < this.eps) {
         this.PlayerAttr.moveLength = 0;
         this.PlayerAttr.vx = this.PlayerAttr.vy = 0;
       } else {
         // 算出每一时间戳的距离
+        console.log(this.timeDelta)
         let moved = Math.min(this.PlayerAttr.moveLength, this.PlayerAttr.speed * this.timeDelta / 1000);
         this.PlayerAttr.x += this.PlayerAttr.vx * moved;
         this.PlayerAttr.y += this.PlayerAttr.vy * moved;
@@ -135,7 +137,6 @@ export default {
     // 移动角色
     moveTO(tx,ty) {
       this.PlayerAttr.moveLength = this.getDist(this.PlayerAttr.x,this.PlayerAttr.y,tx,ty)
-
       // 获取移动方向在坐标系下的角度
       let angle = Math.atan2(ty - this.PlayerAttr.y,tx - this.PlayerAttr.x);
       this.PlayerAttr.vx = Math.cos(angle);

@@ -36,9 +36,9 @@ export default {
 
     // 游戏动画渲染
     GAME_ANIMATION(timestamp) {
-      console.log(this.Game_OBJECTS.length)
       for (let i = 0; i < this.Game_OBJECTS.length; i ++ ) {
         let obj = this.Game_OBJECTS[i];
+        console.log(obj)
         if (!obj.has_called_start) {
           obj.start();
           obj.has_called_start = true;
@@ -50,7 +50,7 @@ export default {
 
       this.last_timeStamp = timestamp
 
-      window.requestAnimationFrame(this.GAME_ANIMATION)
+      // window.requestAnimationFrame(this.GAME_ANIMATION)
     },
   }
 }

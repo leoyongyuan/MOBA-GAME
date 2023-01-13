@@ -1,8 +1,8 @@
 <template>
   <div ref="playground" class="game-playground">
-    <!-- <div @click="returnMenu">退出</div> -->
     <GameMap></GameMap>
-    <Player :PlayerProp="PlayerProp"></Player>
+    <Player ref="me" :PlayerProp="PlayerProp"></Player>
+    <Player ref="ai" :PlayerProp="AiProp"></Player>
   </div>
 </template>
 <script>
@@ -24,7 +24,7 @@ export default {
     return {
       PlayGroundWidth: 0,
       PlayGroundHeight: 0,
-      PlayersCnt: 6,
+      AIPlayer: [],
       PlayerProp: {
         x: 0,   // x 坐标
         y: 0,   // y 坐标
@@ -32,7 +32,15 @@ export default {
         color: 'white', 
         speed: 0,  // 玩家的移动速度，以地图百分比来规定
         is_me: false, // 判断是否是自己
-      }
+      },
+      AiProp: {
+        x: 0,   // x 坐标
+        y: 0,   // y 坐标
+        radius: 0,  // 半径显示大小
+        color: 'white', 
+        speed: 0,  // 玩家的移动速度，以地图百分比来规定
+        is_me: false, // 判断是否是自己
+      },
     }
   },
   mounted() {
@@ -47,10 +55,21 @@ export default {
       speed: this.PlayGroundHeight * 0.15,
       is_me: true,
     }
+    this.AiProp = {
+      x : this.PlayGroundWidth / 2, 
+      y : this.PlayGroundHeight / 2,
+      radius: this.PlayGroundHeight * 0.05,
+      color: 'white',
+      speed: this.PlayGroundHeight * 0.15,
+      is_me: false,
+    }
   },
   methods: {
     returnMenu() {
       this.$emit('returnMenu')
+    },
+    callMethod() {
+      this.$refs.me.update()
     },
   }
 }
@@ -68,4 +87,6 @@ canvas {
   position:relative;
   display: block;
 }
-</style>
+</style> 
+
+
