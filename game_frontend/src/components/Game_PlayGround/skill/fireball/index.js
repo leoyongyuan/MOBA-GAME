@@ -1,11 +1,11 @@
 import { GameObject } from "../../Game_Object";
 
 export class FireBall extends GameObject {
-  constructor(playground, player, x, y, radius, vx, vy, color, speed, moveLength) {
+  constructor(playGround, player, x, y, radius, vx, vy, color, speed, moveLength) {
     super();
-    this.playground = playground;
+    this.playGround = playGround;
     this.player = player;
-    this.ctx = this.playground.gameMap.ctx;
+    this.ctx = this.playGround.gameMap.ctx;
     this.x = x;   // 火球的x坐标
     this.y = y;   // 火球的y坐标
     this.vx = vx;

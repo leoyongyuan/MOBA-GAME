@@ -2,14 +2,14 @@ import { GameObject } from "../Game_Object";
 import $ from 'jquery'
 
 export class GameMap extends GameObject {
-  constructor(playground) {
+  constructor(playGround) {
     super();
-    this.playground = playground;
+    this.playGround = playGround;
     this.$canvas = $(`<canvas></canvas>`);
     this.ctx = this.$canvas[0].getContext('2d');
-    this.ctx.canvas.width = this.playground.width;
-    this.ctx.canvas.height = this.playground.height;
-    this.playground.$playground.append(this.$canvas);
+    this.ctx.canvas.width = this.playGround.width;
+    this.ctx.canvas.height = this.playGround.height;
+    this.playGround.$playGround.append(this.$canvas);
   }
 
   start() {

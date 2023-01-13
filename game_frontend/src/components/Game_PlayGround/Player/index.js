@@ -2,15 +2,15 @@ import { GameObject } from "../Game_Object";
 import { FireBall } from "../skill/fireball";
 
 export class Player extends GameObject{
-  constructor(playground, x, y, radius, color, speed, is_me) {
+  constructor(playGround, x, y, radius, color, speed, is_me) {
     super()
-    this.playground = playground;
-    this.ctx = this.playground.gameMap.ctx;
+    this.playGround = playGround;
+    this.ctx = this.playGround.gameMap.ctx;
     this.x = x;    // x 坐标
     this.y = y;    // y 坐标
     this.vx = 0;   // x轴速度
     this.vy = 0;   // y轴速度
-    this.move_length = 0
+    this.moveLength = 0
     this.radius = radius;  // 半径显示大小
     this.color = color;
     this.speed = speed;   // 玩家的移动速度，以地图百分比来规定
@@ -27,11 +27,11 @@ export class Player extends GameObject{
 
   // 角色的所有监听函数
   listeningEvents() {
-    this.playground.gameMap.$canvas.on("contextmenu", function() {
+    this.playGround.gameMap.$canvas.on("contextmenu", function() {
       return false;
     });
 
-    this.playground.gameMap.$canvas.on('mousedown',e => {
+    this.playGround.gameMap.$canvas.on('mousedown',e => {
       if (e.which === 3) {         // 右键
         this.moveTO(e.clientX,e.clientY)
       } else if (e.which === 1) {   // 左键
@@ -53,13 +53,13 @@ export class Player extends GameObject{
       // 发射火球
   shootFireBall(tx,ty) {
     let x = this.x, y = this.y;
-    let radius = this.playground.height * 0.01;
+    let radius = this.playGround.height * 0.01;
     let angle = Math.atan2(ty - this.y,tx - this.x);
     let vx = Math.cos(angle), vy = Math.sin(angle);
     let color = "orange";
-    let speed = this.playground.height * 0.5;
-    let moveLength = this.playground.height * 1.5;
-    new FireBall(this.playground,this,x, y, radius, vx, vy, color, speed, moveLength)
+    let speed = this.playGround.height * 0.5;
+    let moveLength = this.playGround.height * 1.5;
+    new FireBall(this.playGround,this,x, y, radius, vx, vy, color, speed, moveLength)
   }
 
   // 求两点之前的欧几里得距离
@@ -71,7 +71,7 @@ export class Player extends GameObject{
 
   // 移动角色
   moveTO(tx, ty) {
-    this.move_length = this.getDist(this.x, this.y, tx, ty);
+    this.moveLength = this.getDist(this.x, this.y, tx, ty);
     // 获取移动方向在坐标系下的角度
     let angle = Math.atan2(ty - this.y, tx - this.x);
     this.vx = Math.cos(angle);  
@@ -81,15 +81,15 @@ export class Player extends GameObject{
 
   update() {
     // 查看是否走到了终点
-    if (this.move_length < this.eps) {
-      this.move_length = 0;
+    if (this.moveLength < this.eps) {
+      this.moveLength = 0;
       this.vx = this.vy = 0;
     } else {
       // 算出每一时间戳的距离
-      let moved = Math.min(this.move_length, this.speed * this.timeDelta / 1000);
+      let moved = Math.min(this.moveLength, this.speed * this.timeDelta / 1000);
       this.x += this.vx * moved;
       this.y += this.vy * moved;
-      this.move_length -= moved;
+      this.moveLength -= moved;
     }
 
     this.render()

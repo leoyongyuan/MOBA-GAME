@@ -6,11 +6,11 @@ export class GamePlayGround{
   constructor(id){
     this.id = id;
     this.$game = $('#'+ id);
-    this.$playground = $(`<div class="game-playground"></div>`);
-    this.$game.append(this.$playground)
+    this.$playGround = $(`<div class="game-playground"></div>`);
+    this.$game.append(this.$playGround)
 
-    this.width = this.$playground.width()
-    this.height = this.$playground.height()
+    this.width = this.$playGround.width()
+    this.height = this.$playGround.height()
     //获取游戏地图
     this.gameMap = new GameMap(this);
 
